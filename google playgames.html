@@ -1,0 +1,1139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Games - Google Play</title>
+<link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Roboto', sans-serif; background: #fff; color: #202124; }
+
+  /* TOP NAV */
+  .top-nav {
+    position: sticky; top: 0; z-index: 100;
+    background: #fff;
+    border-bottom: 1px solid #e0e0e0;
+    display: flex; align-items: center;
+    padding: 0 16px; height: 64px; gap: 12px;
+  }
+  .logo-area { display: flex; align-items: center; gap: 8px; text-decoration: none; }
+  .logo-area img { height: 30px; }
+  .logo-text { font-family: 'Google Sans', sans-serif; font-size: 20px; color: #5f6368; font-weight: 400; }
+  .nav-tabs { display: flex; margin-left: 20px; }
+  .nav-tab {
+    font-family: 'Google Sans', sans-serif; font-size: 14px; font-weight: 500;
+    color: #5f6368; text-decoration: none; padding: 0 16px; height: 64px;
+    display: flex; align-items: center; border-bottom: 3px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .nav-tab:hover { color: #01875f; }
+  .nav-tab.active { color: #01875f; border-bottom-color: #01875f; }
+  .nav-right { margin-left: auto; display: flex; align-items: center; gap: 8px; }
+  .icon-btn {
+    width: 40px; height: 40px; border-radius: 50%; border: none;
+    background: none; cursor: pointer; display: flex; align-items: center;
+    justify-content: center; color: #5f6368; transition: background 0.2s;
+  }
+  .icon-btn:hover { background: #f1f3f4; }
+  .avatar {
+    width: 32px; height: 32px; border-radius: 50%;
+    background: #4285f4; color: white; font-size: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Google Sans', sans-serif; cursor: pointer;
+  }
+
+  /* DEVICE FILTER BAR */
+  .device-bar {
+    display: flex; gap: 8px; padding: 12px 24px;
+    overflow-x: auto; border-bottom: 1px solid #e0e0e0;
+    scrollbar-width: none;
+  }
+  .device-bar::-webkit-scrollbar { display: none; }
+  .device-chip {
+    display: flex; align-items: center; gap: 6px;
+    padding: 8px 16px; border-radius: 20px; border: 1px solid #dadce0;
+    font-size: 13px; font-family: 'Google Sans', sans-serif; font-weight: 500;
+    color: #3c4043; text-decoration: none; white-space: nowrap;
+    transition: background 0.2s, border-color 0.2s;
+    background: #fff;
+  }
+  .device-chip:hover { background: #f1f3f4; }
+  .device-chip .material-icons { font-size: 16px; color: #5f6368; }
+
+  /* MAIN CONTENT */
+  .main { max-width: 1400px; margin: 0 auto; padding: 24px 24px; }
+
+  /* HERO BANNER */
+  .hero-section { margin-bottom: 40px; }
+  .hero-label {
+    font-size: 12px; color: #5f6368; font-family: 'Google Sans', sans-serif;
+    text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;
+  }
+  .hero-title {
+    font-family: 'Google Sans', sans-serif; font-size: 28px; font-weight: 400;
+    color: #202124; margin-bottom: 20px;
+  }
+  .hero-carousel { position: relative; overflow: hidden; }
+  .hero-cards { display: flex; gap: 12px; overflow-x: auto; scrollbar-width: none; scroll-behavior: smooth; }
+  .hero-cards::-webkit-scrollbar { display: none; }
+  .hero-card {
+    flex: 0 0 160px; display: flex; flex-direction: column; align-items: center;
+    text-align: center; cursor: pointer; padding: 8px; border-radius: 12px;
+    transition: background 0.2s; text-decoration: none; color: inherit;
+  }
+  .hero-card:hover { background: #f1f3f4; }
+  .hero-card img {
+    width: 64px; height: 64px; border-radius: 14px;
+    object-fit: cover; margin-bottom: 8px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+  }
+  .hero-card .game-name {
+    font-size: 13px; font-family: 'Google Sans', sans-serif; font-weight: 500;
+    line-height: 1.3; color: #202124; margin-bottom: 4px;
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .hero-card .stars { font-size: 11px; color: #5f6368; display: flex; align-items: center; justify-content: center; gap: 2px; }
+  .hero-card .stars .material-icons { font-size: 12px; color: #f9ab00; }
+
+  /* SECTION */
+  .section { margin-bottom: 40px; }
+  .section-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 16px;
+  }
+  .section-title {
+    font-family: 'Google Sans', sans-serif; font-size: 20px; font-weight: 500; color: #202124;
+  }
+  .see-more {
+    font-family: 'Google Sans', sans-serif; font-size: 14px; font-weight: 500;
+    color: #01875f; text-decoration: none; white-space: nowrap;
+  }
+  .see-more:hover { text-decoration: underline; }
+
+  /* TOP CHARTS TABS */
+  .chart-tabs { display: flex; gap: 0; margin-bottom: 16px; border-bottom: 1px solid #e0e0e0; }
+  .chart-tab {
+    font-family: 'Google Sans', sans-serif; font-size: 14px; font-weight: 500;
+    color: #5f6368; padding: 12px 20px; cursor: pointer;
+    border-bottom: 3px solid transparent; transition: color 0.2s, border-color 0.2s;
+  }
+  .chart-tab.active { color: #01875f; border-bottom-color: #01875f; }
+  .chart-tab:hover { color: #01875f; }
+
+  /* TOP CHART LIST */
+  .chart-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 0; }
+  .chart-item {
+    display: flex; align-items: center; gap: 16px;
+    padding: 12px 8px; cursor: pointer; border-radius: 8px;
+    text-decoration: none; color: inherit; transition: background 0.2s;
+  }
+  .chart-item:hover { background: #f1f3f4; }
+  .chart-num {
+    font-size: 16px; font-weight: 500; color: #5f6368; min-width: 24px; text-align: center;
+  }
+  .chart-img { width: 56px; height: 56px; border-radius: 12px; object-fit: cover; }
+  .chart-info { flex: 1; min-width: 0; }
+  .chart-name {
+    font-family: 'Google Sans', sans-serif; font-size: 14px; font-weight: 500;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .chart-sub { font-size: 12px; color: #5f6368; }
+  .chart-stars { display: flex; align-items: center; gap: 2px; font-size: 12px; color: #5f6368; margin-top: 2px; }
+  .chart-stars .material-icons { font-size: 13px; color: #f9ab00; }
+
+  /* HORIZONTAL GAME SCROLL (screenshot cards) */
+  .game-scroll { display: flex; gap: 16px; overflow-x: auto; scrollbar-width: none; scroll-behavior: smooth; padding-bottom: 8px; }
+  .game-scroll::-webkit-scrollbar { display: none; }
+  .game-card { flex: 0 0 160px; cursor: pointer; text-decoration: none; color: inherit; }
+  .game-card:hover .game-card-img { transform: translateY(-2px); }
+  .game-card-img {
+    width: 160px; height: 90px; border-radius: 10px; object-fit: cover;
+    margin-bottom: 8px; transition: transform 0.2s;
+    background: #e8f0fe;
+  }
+  .game-card-thumb {
+    display: flex; align-items: center; gap: 8px; margin-bottom: 4px;
+  }
+  .game-card-thumb img { width: 32px; height: 32px; border-radius: 8px; object-fit: cover; }
+  .game-card-name { font-size: 13px; font-family: 'Google Sans', sans-serif; font-weight: 500; line-height: 1.3; flex: 1; }
+  .game-card-genre { font-size: 11px; color: #5f6368; margin-bottom: 2px; }
+  .game-card-stars { display: flex; align-items: center; gap: 2px; font-size: 11px; color: #5f6368; }
+  .game-card-stars .material-icons { font-size: 12px; color: #f9ab00; }
+
+  /* FOOTER */
+  footer {
+    background: #f8f9fa; border-top: 1px solid #e0e0e0;
+    padding: 32px 24px; margin-top: 40px;
+  }
+  .footer-grid {
+    max-width: 1400px; margin: 0 auto;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 32px;
+  }
+  .footer-col h4 {
+    font-family: 'Google Sans', sans-serif; font-size: 14px; font-weight: 500;
+    color: #202124; margin-bottom: 12px;
+  }
+  .footer-col a {
+    display: block; font-size: 13px; color: #5f6368; text-decoration: none;
+    margin-bottom: 8px; transition: color 0.2s;
+  }
+  .footer-col a:hover { color: #01875f; }
+  .footer-bottom {
+    max-width: 1400px; margin: 20px auto 0;
+    font-size: 12px; color: #5f6368;
+    display: flex; gap: 16px; flex-wrap: wrap; align-items: center;
+  }
+  .footer-bottom a { color: #5f6368; text-decoration: none; }
+  .footer-bottom a:hover { text-decoration: underline; }
+
+  .play-logo { display: flex; align-items: center; gap: 6px; }
+
+  @media (max-width: 600px) {
+    .nav-tabs { display: none; }
+    .hero-title { font-size: 20px; }
+    .section-title { font-size: 16px; }
+    .chart-list { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP NAVIGATION -->
+<nav class="top-nav">
+  <a href="#" class="logo-area">
+    <!-- Google Play logo SVG -->
+    <svg width="32" height="32" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:#00C6FF"/>
+          <stop offset="100%" style="stop-color:#0078FF"/>
+        </linearGradient>
+        <linearGradient id="g2" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:#00E676"/>
+          <stop offset="100%" style="stop-color:#00BFA5"/>
+        </linearGradient>
+        <linearGradient id="g3" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:#FF1744"/>
+          <stop offset="100%" style="stop-color:#FF6D00"/>
+        </linearGradient>
+        <linearGradient id="g4" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:#FFD600"/>
+          <stop offset="100%" style="stop-color:#FF6D00"/>
+        </linearGradient>
+      </defs>
+      <path d="M70 30 L280 256 L70 482 Q30 460 30 256 Q30 52 70 30Z" fill="url(#g1)"/>
+      <path d="M70 30 L280 256 L370 166 L140 30 Q100 10 70 30Z" fill="url(#g4)"/>
+      <path d="M70 482 L280 256 L370 346 L140 482 Q100 502 70 482Z" fill="url(#g2)"/>
+      <path d="M370 166 L280 256 L370 346 L480 290 Q510 256 480 222 Z" fill="url(#g3)"/>
+    </svg>
+    <span class="logo-text">Play</span>
+  </a>
+
+  <nav class="nav-tabs">
+    <a href="#" class="nav-tab">Games</a>
+    <a href="#" class="nav-tab">Apps</a>
+    <a href="#" class="nav-tab">Children</a>
+  </nav>
+
+  <div class="nav-right">
+    <button class="icon-btn"><span class="material-icons">search</span></button>
+    <button class="icon-btn"><span class="material-icons">help_outline</span></button>
+    <div class="avatar">G</div>
+  </div>
+</nav>
+
+<!-- DEVICE FILTER BAR -->
+<div class="device-bar">
+  <a href="#" class="device-chip"><span class="material-icons">desktop_windows</span>Windows</a>
+  <a href="#" class="device-chip"><span class="material-icons">phone_android</span>Phone</a>
+  <a href="#" class="device-chip"><span class="material-icons">tablet_android</span>Tablet</a>
+  <a href="#" class="device-chip"><span class="material-icons">tv</span>TV</a>
+  <a href="#" class="device-chip"><span class="material-icons">laptop_chromebook</span>Chromebook</a>
+  <a href="#" class="device-chip"><span class="material-icons">watch</span>Watch</a>
+  <a href="#" class="device-chip"><span class="material-icons">headset</span>XR headset</a>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="main">
+
+  <!-- HERO: In everyone's hands -->
+  <section class="hero-section section">
+    <div class="section-header">
+      <div>
+        <div class="hero-label">In everyone's hands</div>
+        <div class="hero-title">Download these games</div>
+      </div>
+      <a href="#" class="see-more">See more</a>
+    </div>
+    <div class="hero-cards" id="heroCards">
+      <!-- Cards injected by JS -->
+    </div>
+  </section>
+
+  <!-- TOP CHARTS -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-title">Top charts</div>
+      <a href="#" class="see-more">See more</a>
+    </div>
+    <div class="chart-tabs">
+      <div class="chart-tab active" onclick="switchTab(this,'free')">Top free</div>
+      <div class="chart-tab" onclick="switchTab(this,'grossing')">Top grossing</div>
+      <div class="chart-tab" onclick="switchTab(this,'paid')">Top paid</div>
+    </div>
+    <div class="chart-list" id="chartList"></div>
+  </section>
+
+  <!-- MULTIPLAYER GAMES -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-title">Multiplayer games</div>
+      <a href="#" class="see-more">See more</a>
+    </div>
+    <div class="game-scroll" id="multiplayerScroll"></div>
+  </section>
+
+  <!-- POPULAR GAMES -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-title">Popular games</div>
+      <a href="#" class="see-more">See more</a>
+    </div>
+    <div class="game-scroll" id="popularScroll"></div>
+  </section>
+
+  <!-- NON-STOP ACTION -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-title">Non-stop action</div>
+      <a href="#" class="see-more">See more</a>
+    </div>
+    <div class="game-scroll" id="actionScroll"></div>
+  </section>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-col">
+      <h4>Google Play</h4>
+      <a href="#">Play Pass</a>
+      <a href="#">Play Points</a>
+      <a href="#">Gift cards</a>
+      <a href="#">Redeem</a>
+      <a href="#">Refund policy</a>
+    </div>
+    <div class="footer-col">
+      <h4>Children and family</h4>
+      <a href="#">Parent guide</a>
+      <a href="#">Family sharing</a>
+    </div>
+    <div class="footer-col">
+      <h4>About</h4>
+      <a href="#">Terms of Service</a>
+      <a href="#">Privacy</a>
+      <a href="#">About Google Play</a>
+      <a href="#">Developers</a>
+      <a href="#">Google Store</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>©️ 2025 Google LLC</span>
+    <span>•</span>
+    <a href="#">Privacy Policy</a>
+    <span>•</span>
+    <a href="#">Terms of Service</a>
+    <span>•</span>
+    <span>Unknown Region (English (India))</span>
+  </div>
+</footer>
+
+<script>
+// ---------- COMPLETE GAME DATABASE WITH ALL PROPERTIES ----------
+const gameDatabase = {
+  "Free Fire MAX": {
+    brand: "FF",
+    colors: ["#ff6b35", "#f7c59f"],
+    textColor: "#fff",
+    accent: "#ffd200",
+    rating: 4.4,
+    downloads: "100M+",
+    developer: "Garena",
+    genres: ["Action", "Battle Royale", "Multiplayer"],
+    size: "612 MB",
+    reviews: 2840000,
+    version: "1.88.0"
+  },
+  "Free Fire: Undersea Mystery": {
+    brand: "FF",
+    colors: ["#1a237e", "#42a5f5"],
+    textColor: "#fff",
+    accent: "#64b5f6",
+    rating: 4.5,
+    downloads: "50M+",
+    developer: "Garena",
+    genres: ["Action", "Adventure", "Casual"],
+    size: "450 MB",
+    reviews: 1200000,
+    version: "1.0.2"
+  },
+  "Mobile Legends: Bang Bang": {
+    brand: "ML",
+    colors: ["#c62828", "#ef9a9a"],
+    textColor: "#fff",
+    accent: "#ff1744",
+    rating: 3.9,
+    downloads: "500M+",
+    developer: "Moonton",
+    genres: ["Action", "MOBA", "Multiplayer"],
+    size: "1.2 GB",
+    reviews: 5600000,
+    version: "1.7.22"
+  },
+  "EA SPORTS FC™️ Mobile": {
+    brand: "⚽",
+    colors: ["#1b5e20", "#a5d6a7"],
+    textColor: "#fff",
+    accent: "#4caf50",
+    rating: 4.4,
+    downloads: "50M+",
+    developer: "EA Sports",
+    genres: ["Sports", "Football", "Simulation"],
+    size: "1.8 GB",
+    reviews: 780000,
+    version: "24.1.0"
+  },
+  "Brawl Stars": {
+    brand: "★",
+    colors: ["#f57f17", "#fff176"],
+    textColor: "#333",
+    accent: "#ffd600",
+    rating: 4.2,
+    downloads: "500M+",
+    developer: "Supercell",
+    genres: ["Action", "Tactical Shooter", "Multiplayer"],
+    size: "290 MB",
+    reviews: 4200000,
+    version: "59.0"
+  },
+  "PUBG MOBILE": {
+    brand: "🎖",
+    colors: ["#263238", "#78909c"],
+    textColor: "#fff",
+    accent: "#e0f2f1",
+    rating: 4.5,
+    downloads: "100M+",
+    developer: "Tencent Games",
+    genres: ["Action", "Battle Royale", "Multiplayer"],
+    size: "2.1 GB",
+    reviews: 3400000,
+    version: "2.7.0"
+  },
+  "8 Ball Pool": {
+    brand: "8",
+    colors: ["#004d40", "#80cbc4"],
+    textColor: "#fff",
+    accent: "#26a69a",
+    rating: 4.8,
+    downloads: "500M+",
+    developer: "Miniclip.com",
+    genres: ["Sports", "Billiards", "Casual"],
+    size: "85 MB",
+    reviews: 2100000,
+    version: "5.13.0"
+  },
+  "Toca Boca World": {
+    brand: "🎨",
+    colors: ["#880e4f", "#f48fb1"],
+    textColor: "#fff",
+    accent: "#ec407a",
+    rating: 4.3,
+    downloads: "10M+",
+    developer: "Toca Boca",
+    genres: ["Simulation", "Education", "Creative"],
+    size: "1.9 GB",
+    reviews: 450000,
+    version: "1.98.0"
+  },
+  "Clash of Clans": {
+    brand: "⚔",
+    colors: ["#bf360c", "#ffab91"],
+    textColor: "#fff",
+    accent: "#ff5722",
+    rating: 4.5,
+    downloads: "100M+",
+    developer: "Supercell",
+    genres: ["Strategy", "Tower Defense", "MMO"],
+    size: "128 MB",
+    reviews: 2800000,
+    version: "14.825.5"
+  },
+  "Royal Match": {
+    brand: "👑",
+    colors: ["#4a148c", "#ce93d8"],
+    textColor: "#fff",
+    accent: "#ba68c8",
+    rating: 4.6,
+    downloads: "500M+",
+    developer: "Dream Games",
+    genres: ["Puzzle", "Match 3", "Casual"],
+    size: "310 MB",
+    reviews: 2900000,
+    version: "12.8.0"
+  },
+  "Genshin Impact": {
+    brand: "元",
+    colors: ["#1a237e", "#90caf9"],
+    textColor: "#fff",
+    accent: "#64b5f6",
+    rating: 4.1,
+    downloads: "100M+",
+    developer: "HoYoverse",
+    genres: ["Action RPG", "Adventure", "Fantasy"],
+    size: "16 GB",
+    reviews: 1800000,
+    version: "3.4.0"
+  },
+  "Hero Wars: Alliance": {
+    brand: "⚡",
+    colors: ["#3e2723", "#a1887f"],
+    textColor: "#fff",
+    accent: "#8d6e63",
+    rating: 4.5,
+    downloads: "50M+",
+    developer: "Nexters Global LTD",
+    genres: ["RPG", "Strategy", "Multiplayer"],
+    size: "850 MB",
+    reviews: 950000,
+    version: "1.2.85"
+  },
+  "Travel Town": {
+    brand: "🏝",
+    colors: ["#00695c", "#80cbc4"],
+    textColor: "#fff",
+    accent: "#26a69a",
+    rating: 4.2,
+    downloads: "10M+",
+    developer: "Playrix",
+    genres: ["Casual", "Management", "Puzzle"],
+    size: "220 MB",
+    reviews: 380000,
+    version: "8.12.1"
+  },
+  "Toon Blast": {
+    brand: "💣",
+    colors: ["#e65100", "#ffcc80"],
+    textColor: "#333",
+    accent: "#ff9800",
+    rating: 4.6,
+    downloads: "100M+",
+    developer: "Peak Games",
+    genres: ["Puzzle", "Match 3", "Casual"],
+    size: "280 MB",
+    reviews: 1600000,
+    version: "3090.0"
+  },
+  "Dice Dreams™️": {
+    brand: "🎲",
+    colors: ["#311b92", "#b39ddb"],
+    textColor: "#fff",
+    accent: "#7e57c2",
+    rating: 4.7,
+    downloads: "50M+",
+    developer: "PalmassGames",
+    genres: ["Casual", "Board", "Multiplayer"],
+    size: "380 MB",
+    reviews: 1100000,
+    version: "1.45.3"
+  },
+  "War Robots": {
+    brand: "🤖",
+    colors: ["#212121", "#757575"],
+    textColor: "#fff",
+    accent: "#e0e0e0",
+    rating: 4.3,
+    downloads: "100M+",
+    developer: "Pixonic",
+    genres: ["Action", "Multiplayer", "Mecha"],
+    size: "1.1 GB",
+    reviews: 2200000,
+    version: "7.4.5"
+  },
+  "Project Makeover": {
+    brand: "💄",
+    colors: ["#880e4f", "#f48fb1"],
+    textColor: "#fff",
+    accent: "#ec407a",
+    rating: 4.5,
+    downloads: "50M+",
+    developer: "Outfit7 Limited",
+    genres: ["Casual", "Simulation", "Puzzle"],
+    size: "520 MB",
+    reviews: 890000,
+    version: "2.87.0"
+  },
+  "Top War: Battle Game": {
+    brand: "🔥",
+    colors: ["#1b5e20", "#a5d6a7"],
+    textColor: "#fff",
+    accent: "#4caf50",
+    rating: 4.3,
+    downloads: "10M+",
+    developer: "Mobirate Ltd",
+    genres: ["Strategy", "War", "Multiplayer"],
+    size: "950 MB",
+    reviews: 425000,
+    version: "1.398.0"
+  },
+  "Total Battle": {
+    brand: "⚔",
+    colors: ["#4e342e", "#bcaaa4"],
+    textColor: "#fff",
+    accent: "#8d6e63",
+    rating: 4.4,
+    downloads: "5M+",
+    developer: "Pixelfederation",
+    genres: ["Strategy", "MMO", "War"],
+    size: "1.3 GB",
+    reviews: 182000,
+    version: "4.2.1"
+  },
+  "Yalla Ludo": {
+    brand: "🎲",
+    colors: ["#006064", "#80deea"],
+    textColor: "#fff",
+    accent: "#00838f",
+    rating: 4.3,
+    downloads: "50M+",
+    developer: "Yalla Games",
+    genres: ["Board", "Casual", "Multiplayer"],
+    size: "180 MB",
+    reviews: 1050000,
+    version: "5.4.2"
+  },
+  "Block Blast!": {
+    brand: "◻",
+    colors: ["#283593", "#90caf9"],
+    textColor: "#fff",
+    accent: "#5c6bc0",
+    rating: 4.7,
+    downloads: "100M+",
+    developer: "Playstudios",
+    genres: ["Puzzle", "Block", "Casual"],
+    size: "200 MB",
+    reviews: 2400000,
+    version: "250.0"
+  },
+  "Subway Surfers": {
+    brand: "🚇",
+    colors: ["#e65100", "#ffcc80"],
+    textColor: "#333",
+    accent: "#ff9800",
+    rating: 4.5,
+    downloads: "1B+",
+    developer: "Kiloo",
+    genres: ["Action", "Runner", "Casual"],
+    size: "145 MB",
+    reviews: 38000000,
+    version: "3.3.0"
+  },
+  "Vita Mahjong": {
+    brand: "🀄",
+    colors: ["#4a148c", "#ce93d8"],
+    textColor: "#fff",
+    accent: "#ba68c8",
+    rating: 4.8,
+    downloads: "50M+",
+    developer: "Playspace",
+    genres: ["Puzzle", "Board", "Traditional"],
+    size: "120 MB",
+    reviews: 920000,
+    version: "1.8.5"
+  },
+  "Tile Explorer - Triple Match": {
+    brand: "🔷",
+    colors: ["#00695c", "#80cbc4"],
+    textColor: "#fff",
+    accent: "#26a69a",
+    rating: 4.8,
+    downloads: "10M+",
+    developer: "PlaySimple Games",
+    genres: ["Puzzle", "Match 3", "Casual"],
+    size: "290 MB",
+    reviews: 625000,
+    version: "1.12.0"
+  },
+  "School Party Craft": {
+    brand: "🎓",
+    colors: ["#f57f17", "#fff176"],
+    textColor: "#333",
+    accent: "#ffd600",
+    rating: 4.5,
+    downloads: "10M+",
+    developer: "Pixel Crux",
+    genres: ["Adventure", "Simulation", "Creative"],
+    size: "850 MB",
+    reviews: 280000,
+    version: "1.30.0"
+  },
+  "Football League 2026": {
+    brand: "🏆",
+    colors: ["#0d47a1", "#64b5f6"],
+    textColor: "#fff",
+    accent: "#42a5f5",
+    rating: 4.4,
+    downloads: "5M+",
+    developer: "Miniclip.com",
+    genres: ["Sports", "Football", "Simulation"],
+    size: "350 MB",
+    reviews: 145000,
+    version: "2.8.0"
+  },
+  "My Talking Tom 2": {
+    brand: "🐱",
+    colors: ["#880e4f", "#f48fb1"],
+    textColor: "#fff",
+    accent: "#ec407a",
+    rating: 4.3,
+    downloads: "100M+",
+    developer: "Outfit7 Limited",
+    genres: ["Simulation", "Pet", "Casual"],
+    size: "280 MB",
+    reviews: 1950000,
+    version: "4.4.1"
+  },
+  "Cricket League": {
+    brand: "🏏",
+    colors: ["#1b5e20", "#a5d6a7"],
+    textColor: "#fff",
+    accent: "#4caf50",
+    rating: 4.5,
+    downloads: "50M+",
+    developer: "Nautilus Games",
+    genres: ["Sports", "Cricket", "Multiplayer"],
+    size: "480 MB",
+    reviews: 620000,
+    version: "1.8.0"
+  },
+  "Dream League Soccer 2026": {
+    brand: "⚽",
+    colors: ["#0d47a1", "#64b5f6"],
+    textColor: "#fff",
+    accent: "#42a5f5",
+    rating: 4.5,
+    downloads: "100M+",
+    developer: "First Touch Games",
+    genres: ["Sports", "Football", "Simulation"],
+    size: "650 MB",
+    reviews: 3200000,
+    version: "14.2.0"
+  },
+  "Carrom Pool": {
+    brand: "🎯",
+    colors: ["#bf360c", "#ffab91"],
+    textColor: "#fff",
+    accent: "#ff5722",
+    rating: 4.6,
+    downloads: "100M+",
+    developer: "Miniclip.com",
+    genres: ["Sports", "Billiards", "Casual"],
+    size: "90 MB",
+    reviews: 1680000,
+    version: "4.8.0"
+  },
+  "Snake Clash!": {
+    brand: "🐍",
+    colors: ["#33691e", "#aed581"],
+    textColor: "#fff",
+    accent: "#689f38",
+    rating: 4.3,
+    downloads: "50M+",
+    developer: "Playstudios",
+    genres: ["Arcade", "Action", "IO Game"],
+    size: "180 MB",
+    reviews: 1420000,
+    version: "1.45.0"
+  },
+  "Hole.io": {
+    brand: "⭕",
+    colors: ["#37474f", "#90a4ae"],
+    textColor: "#fff",
+    accent: "#78909c",
+    rating: 3.0,
+    downloads: "50M+",
+    developer: "Voodoo",
+    genres: ["Arcade", "Action", "Casual"],
+    size: "85 MB",
+    reviews: 890000,
+    version: "1.28.0"
+  },
+  "Geometry Dash Lite": {
+    brand: "▶",
+    colors: ["#283593", "#90caf9"],
+    textColor: "#fff",
+    accent: "#5c6bc0",
+    rating: 4.3,
+    downloads: "100M+",
+    developer: "RobTop Games",
+    genres: ["Action", "Runner", "Arcade"],
+    size: "150 MB",
+    reviews: 1850000,
+    version: "2.2.13"
+  },
+  "Spider Fighter 3": {
+    brand: "🕷",
+    colors: ["#c62828", "#ef9a9a"],
+    textColor: "#fff",
+    accent: "#ff1744",
+    rating: 4.4,
+    downloads: "10M+",
+    developer: "Superhero Games",
+    genres: ["Action", "Casual", "Superhero"],
+    size: "420 MB",
+    reviews: 385000,
+    version: "3.3.2"
+  },
+  "Worms Zone .io": {
+    brand: "🪱",
+    colors: ["#2e7d32", "#a5d6a7"],
+    textColor: "#fff",
+    accent: "#66bb6a",
+    rating: 4.3,
+    downloads: "100M+",
+    developer: "Miniclip.com",
+    genres: ["Action", "IO Game", "Casual"],
+    size: "110 MB",
+    reviews: 2140000,
+    version: "5.2.0"
+  },
+  "Supreme Duelist Stickman": {
+    brand: "🤺",
+    colors: ["#880e4f", "#f48fb1"],
+    textColor: "#fff",
+    accent: "#ec407a",
+    rating: 4.5,
+    downloads: "50M+",
+    developer: "Superhero Games",
+    genres: ["Action", "Fighting", "Casual"],
+    size: "320 MB",
+    reviews: 1750000,
+    version: "2.5.3"
+  },
+  "Talking Tom Gold Run": {
+    brand: "🐱",
+    colors: ["#e65100", "#ffcc80"],
+    textColor: "#333",
+    accent: "#ff9800",
+    rating: 4.4,
+    downloads: "100M+",
+    developer: "Outfit7 Limited",
+    genres: ["Action", "Runner", "Casual"],
+    size: "220 MB",
+    reviews: 4600000,
+    version: "1.9.5"
+  },
+  "Payback 2 - Battle Sandbox": {
+    brand: "💥",
+    colors: ["#1a237e", "#42a5f5"],
+    textColor: "#fff",
+    accent: "#64b5f6",
+    rating: 4.4,
+    downloads: "50M+",
+    developer: "Apex Designs",
+    genres: ["Arcade", "Action", "Sandbox"],
+    size: "520 MB",
+    reviews: 1280000,
+    version: "2.120.2"
+  },
+  "Fortnite": {
+    brand: "🎮",
+    colors: ["#4a148c", "#ce93d8"],
+    textColor: "#fff",
+    accent: "#ba68c8",
+    rating: 4.0,
+    downloads: "500M+",
+    developer: "Epic Games",
+    genres: ["Action", "Battle Royale", "Multiplayer"],
+    size: "2.8 GB",
+    reviews: 2100000,
+    version: "27.40.0"
+  },
+  "Car Parking Multiplayer": {
+    brand: "🚗",
+    colors: ["#d32f2f", "#ef5350"],
+    textColor: "#fff",
+    accent: "#ff1744",
+    rating: 4.5,
+    downloads: "100M+",
+    developer: "Ovidiu Pop",
+    genres: ["Simulation", "Parking", "Casual"],
+    size: "380 MB",
+    reviews: 3100000,
+    version: "4.8.18"
+  }
+};
+
+// ---------- HELPER FUNCTIONS ----------
+function getGameData(gameName) {
+  return gameDatabase[gameName] || {
+    brand: "?",
+    colors: ["#667eea", "#764ba2"],
+    textColor: "#fff",
+    accent: "#667eea",
+    rating: 4.0,
+    downloads: "Unknown",
+    developer: "Unknown Developer",
+    genres: ["Game"],
+    size: "Unknown",
+    reviews: 0,
+    version: "1.0.0"
+  };
+}
+
+// ---------- GAME LISTS ----------
+const heroGames = [
+  "Free Fire MAX", "Free Fire: Undersea Mystery", "Mobile Legends: Bang Bang", "EA SPORTS FC™️ Mobile",
+  "Brawl Stars", "PUBG MOBILE", "8 Ball Pool", "Toca Boca World", "Clash of Clans", "Royal Match",
+  "Genshin Impact", "Hero Wars: Alliance", "Travel Town", "Toon Blast", "Dice Dreams™️",
+  "War Robots", "Project Makeover", "Top War: Battle Game", "Total Battle", "Yalla Ludo"
+];
+
+const topFreeGames = [
+  { name: "Free Fire MAX", category: "Battle Royale" },
+  { name: "PUBG MOBILE", category: "Battle Royale" },
+  { name: "Free Fire: Undersea Mystery", category: "Action" },
+  { name: "Brawl Stars", category: "Action" },
+  { name: "8 Ball Pool", category: "Sports" },
+  { name: "Block Blast!", category: "Puzzle" },
+  { name: "Subway Surfers", category: "Action" },
+  { name: "Clash of Clans", category: "Strategy" },
+  { name: "Royal Match", category: "Puzzle" }
+];
+
+const multiplayerGames = [
+  { name: "Brawl Stars", category: "Multiplayer" },
+  { name: "Cricket League", category: "Multiplayer" },
+  { name: "Dream League Soccer 2026", category: "Sports" },
+  { name: "8 Ball Pool", category: "Multiplayer" },
+  { name: "Carrom Pool", category: "Multiplayer" },
+  { name: "Snake Clash!", category: "IO Game" },
+  { name: "Hole.io", category: "IO Game" },
+  { name: "Car Parking Multiplayer", category: "Simulation" },
+  { name: "Supreme Duelist Stickman", category: "Fighting" }
+];
+
+const popularGames = [
+  { name: "Block Blast!", category: "Puzzle" },
+  { name: "Subway Surfers", category: "Action" },
+  { name: "Vita Mahjong", category: "Puzzle" },
+  { name: "Tile Explorer - Triple Match", category: "Puzzle" },
+  { name: "School Party Craft", category: "Adventure" },
+  { name: "EA SPORTS FC™️ Mobile", category: "Sports" },
+  { name: "Brawl Stars", category: "Action" },
+  { name: "PUBG MOBILE", category: "Action" },
+  { name: "Football League 2026", category: "Sports" },
+  { name: "My Talking Tom 2", category: "Simulation" }
+];
+
+const actionGames = [
+  { name: "Snake Clash!", category: "IO Game" },
+  { name: "Hole.io", category: "IO Game" },
+  { name: "Geometry Dash Lite", category: "Runner" },
+  { name: "Spider Fighter 3", category: "Fighting" },
+  { name: "Worms Zone .io", category: "IO Game" },
+  { name: "Supreme Duelist Stickman", category: "Fighting" },
+  { name: "Talking Tom Gold Run", category: "Runner" },
+  { name: "Payback 2 - Battle Sandbox", category: "Sandbox" },
+  { name: "Fortnite", category: "Battle Royale" }
+];
+
+// ---------- LOGO GENERATOR ----------
+function genGameIcon(gameName, size = 64) {
+  const branding = getGameData(gameName);
+  const [c1, c2] = branding.colors;
+  
+  const canvas = document.createElement('canvas');
+  canvas.width = size;
+  canvas.height = size;
+  const ctx = canvas.getContext('2d');
+  const r = Math.floor(size * 0.2);
+  
+  // Draw rounded rectangle background with gradient
+  ctx.beginPath();
+  ctx.moveTo(r, 0);
+  ctx.lineTo(size - r, 0);
+  ctx.quadraticCurveTo(size, 0, size, r);
+  ctx.lineTo(size, size - r);
+  ctx.quadraticCurveTo(size, size, size - r, size);
+  ctx.lineTo(r, size);
+  ctx.quadraticCurveTo(0, size, 0, size - r);
+  ctx.lineTo(0, r);
+  ctx.quadraticCurveTo(0, 0, r, 0);
+  ctx.closePath();
+  
+  const grad = ctx.createLinearGradient(0, 0, size, size);
+  grad.addColorStop(0, c1);
+  grad.addColorStop(1, c2);
+  ctx.fillStyle = grad;
+  ctx.fill();
+  
+  // Add decorative elements
+  ctx.fillStyle = 'rgba(255,255,255,0.15)';
+  ctx.beginPath();
+  ctx.arc(size * 0.7, size * 0.3, size * 0.25, 0, Math.PI * 2);
+  ctx.fill();
+  
+  ctx.fillStyle = 'rgba(255,255,255,0.08)';
+  ctx.beginPath();
+  ctx.arc(size * 0.2, size * 0.7, size * 0.2, 0, Math.PI * 2);
+  ctx.fill();
+  
+  // Draw game brand text/symbol
+  ctx.fillStyle = branding.textColor;
+  ctx.font = `bold ${Math.floor(size * 0.35)}px Arial`;
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText(branding.brand, size / 2, size / 2);
+  
+  return canvas.toDataURL();
+}
+
+function genBanner(gameName, w = 160, h = 90) {
+  const branding = getGameData(gameName);
+  const [c1, c2] = branding.colors;
+  
+  const canvas = document.createElement('canvas');
+  canvas.width = w;
+  canvas.height = h;
+  const ctx = canvas.getContext('2d');
+  
+  const grad = ctx.createLinearGradient(0, 0, w, h);
+  grad.addColorStop(0, c1);
+  grad.addColorStop(1, c2);
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, w, h);
+  
+  // Decorative shapes
+  ctx.fillStyle = 'rgba(255,255,255,0.1)';
+  ctx.beginPath();
+  ctx.arc(w * 0.8, h * 0.2, h * 0.6, 0, Math.PI * 2);
+  ctx.fill();
+  
+  ctx.fillStyle = 'rgba(255,255,255,0.05)';
+  ctx.beginPath();
+  ctx.arc(w * 0.2, h * 0.8, h * 0.5, 0, Math.PI * 2);
+  ctx.fill();
+  
+  return canvas.toDataURL();
+}
+
+function starHTML(rating) {
+  return `<span class="material-icons">star</span>${rating}`;
+}
+
+function formatDownloads(downloads) {
+  return downloads || "Unknown";
+}
+
+// ---------- RENDER FUNCTIONS ----------
+function renderHero() {
+  const container = document.getElementById('heroCards');
+  container.innerHTML = '';
+  heroGames.forEach(name => {
+    const branding = getGameData(name);
+    const icon = genGameIcon(name);
+    const el = document.createElement('a');
+    el.href = '#';
+    el.className = 'hero-card';
+    el.title = `${name} - ${branding.rating}★ - ${branding.downloads}`;
+    el.innerHTML = `
+      <img src="${icon}" alt="${name}">
+      <div class="game-name">${name}</div>
+      <div class="stars">${starHTML(branding.rating)}</div>
+    `;
+    container.appendChild(el);
+  });
+}
+
+function renderChartList(gameNames) {
+  const container = document.getElementById('chartList');
+  container.innerHTML = '';
+  gameNames.forEach((gameName, i) => {
+    const branding = getGameData(gameName);
+    const icon = genGameIcon(gameName, 56);
+    const mainGenre = branding.genres[0] || 'Game';
+    
+    const el = document.createElement('a');
+    el.href = '#';
+    el.className = 'chart-item';
+    el.title = `${branding.developer} • ${branding.downloads} • v${branding.version}`;
+    el.innerHTML = `
+      <span class="chart-num">${i + 1}</span>
+      <img class="chart-img" src="${icon}" alt="${gameName}">
+      <div class="chart-info">
+        <div class="chart-name">${gameName}</div>
+        <div class="chart-sub">${mainGenre}</div>
+        <div class="chart-stars">${starHTML(branding.rating)}</div>
+      </div>
+    `;
+    container.appendChild(el);
+  });
+}
+
+function renderGameScroll(gameList, containerId) {
+  const container = document.getElementById(containerId);
+  container.innerHTML = '';
+  gameList.forEach(gameData => {
+    const gameName = typeof gameData === 'string' ? gameData : gameData.name;
+    const branding = getGameData(gameName);
+    const allGenres = branding.genres.join(' • ');
+    
+    const banner = genBanner(gameName);
+    const icon = genGameIcon(gameName, 32);
+    
+    const el = document.createElement('a');
+    el.href = '#';
+    el.className = 'game-card';
+    el.title = `${branding.developer} • ${branding.downloads} • ${branding.size}`;
+    el.innerHTML = `
+      <img class="game-card-img" src="${banner}" alt="${gameName}">
+      <div class="game-card-thumb">
+        <img src="${icon}" alt="">
+        <span class="game-card-name">${gameName}</span>
+      </div>
+      <div class="game-card-genre">${allGenres}</div>
+      <div class="game-card-stars">${starHTML(branding.rating)}</div>
+    `;
+    container.appendChild(el);
+  });
+}
+
+function switchTab(el, type) {
+  document.querySelectorAll('.chart-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  
+  let gameNames;
+  if (type === 'free') {
+    gameNames = topFreeGames.map(g => g.name);
+  } else if (type === 'grossing') {
+    gameNames = topFreeGames.slice().reverse().map(g => g.name);
+  } else {
+    gameNames = topFreeGames.slice(0, 6).map(g => g.name);
+  }
+  
+  renderChartList(gameNames);
+}
+
+// Initialize
+renderHero();
+renderChartList(topFreeGames.map(g => g.name));
+renderGameScroll(multiplayerGames, 'multiplayerScroll');
+renderGameScroll(popularGames, 'popularScroll');
+renderGameScroll(actionGames, 'actionScroll');
+</script>
+</body>
+</html>
